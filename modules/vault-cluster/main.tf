@@ -170,7 +170,7 @@ resource "aws_security_group_rule" "allow_ssh_inbound_from_cidr_blocks" {
   from_port   = var.ssh_port
   to_port     = var.ssh_port
   protocol    = "tcp"
-  cidr_blocks = var.allowed_ssh_cidr_blocks
+  cidr_blocks = distinct(var.allowed_ssh_cidr_blocks)
 
   security_group_id = aws_security_group.lc_security_group.id
 }
@@ -191,7 +191,7 @@ resource "aws_security_group_rule" "allow_outbound" {
   from_port   = 0
   to_port     = 0
   protocol    = "-1"
-  cidr_blocks = var.allowed_outbound_cidr_blocks
+  cidr_blocks = distinct(var.allowed_outbound_cidr_blocks)
 
   security_group_id = aws_security_group.lc_security_group.id
 }
@@ -201,7 +201,7 @@ resource "aws_security_group_rule" "allow_https_outbound" {
   from_port   = 443
   to_port     = 443
   protocol    = "TCP"
-  cidr_blocks = var.allowed_outbound_https_cidr_blocks
+  cidr_blocks = distinct(var.allowed_outbound_https_cidr_blocks)
 
   security_group_id = aws_security_group.lc_security_group.id
 }
@@ -211,7 +211,7 @@ resource "aws_security_group_rule" "allow_proxy_outbound" {
   from_port   = 3128
   to_port     = 3128
   protocol    = "TCP"
-  cidr_blocks = var.allowed_outbound_proxy_cidr_blocks
+  cidr_blocks = distinct(var.allowed_outbound_proxy_cidr_blocks)
 
   security_group_id = aws_security_group.lc_security_group.id
 }
